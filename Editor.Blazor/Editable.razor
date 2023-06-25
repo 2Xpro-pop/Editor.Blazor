@@ -1,0 +1,12 @@
+@inject BlazorEditorJsInterop BlazorEditorJs
+
+<div id=@id contenteditable>@ChildContent</div>
+
+@code{
+    private string id = $"id{Guid.NewGuid():N}";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public ValueTask<string> GetContentAsync() => BlazorEditorJs.GetContentAsync(id);
+}
