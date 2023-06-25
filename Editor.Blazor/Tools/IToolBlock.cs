@@ -14,10 +14,12 @@ namespace Editor.Blazor.Tools;
 /// </summary>
 public interface IToolBlock : IComponent
 {
-    public object? Data
+    object? Data
     {
         get; set;
     }
+
+    
 
     ValueTask SaveAsync();
 }
