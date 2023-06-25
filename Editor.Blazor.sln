@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Blazor", "Editor.Blazor\Editor.Blazor.csproj", "{C1FC3FD1-B631-49ED-9819-E01FDECE19B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor.Blazor", "Editor.Blazor\Editor.Blazor.csproj", "{C1FC3FD1-B631-49ED-9819-E01FDECE19B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorBlazorDemo", "EditorBlazorDemo\EditorBlazorDemo.csproj", "{CCA09C58-D57B-4F0D-83F1-59080E7ADEB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditorBlazorDemo", "EditorBlazorDemo\EditorBlazorDemo.csproj", "{CCA09C58-D57B-4F0D-83F1-59080E7ADEB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

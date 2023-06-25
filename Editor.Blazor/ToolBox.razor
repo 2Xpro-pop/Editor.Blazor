@@ -1,0 +1,30 @@
+
+<RadzenCard Style="min-width:300px; max-width:650px; width: 100%">
+    @if(ToolBoxes != null)
+    {
+        @RenderToolBoxes()
+    }
+</RadzenCard>
+
+@code{
+    [Parameter]
+    public IEnumerable<IToolBox>? ToolBoxes { get; set; }
+
+    [Parameter]
+    public EventCallback<IToolBlock> ComponentGenerated { get; set; }
+
+    private RenderFragment RenderToolBoxes() => builder =>
+    {
+        foreach(var toolBox in ToolBoxes!)
+        {
+            var fragmentField = EditorBlazorHelper.GetPrivateField(toolBox.GetType(), "_renderFragment");
+
+            var value = (RenderFragment)fragmentField!.GetValue(toolBox)!;
+            toolBox.Click = EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+            {
+                ComponentGenerated?.InvokeAsync(toolBox.GenerateComponent());
+            });
+            builder.AddContent(0, value);
+        }
+    };
+}
