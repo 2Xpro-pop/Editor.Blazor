@@ -8,5 +8,5 @@ using Microsoft.JSInterop;
 namespace Editor.Blazor;
 public interface ISurroundInlineComponentStrategy
 {
-    void Surround(IJSObjectReference range, string componentName, Type componentType, )
+    void Surround(IJSObjectReference range, string componentName, Type componentType, object data);
 }
