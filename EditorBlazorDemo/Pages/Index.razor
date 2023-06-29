@@ -6,8 +6,36 @@
 
 <RadzenButton Text="J" />
 
-<ToolBox ToolBoxes=@(new[] { new CardToolBox()})/>
+<ToolBox ToolBoxes=@(new ToolDescriptor[] {
+    new() { Name = "Card", ToolType = typeof(CardToolBox)}
+         }) BlockGenerated=@OnBlockGenerated />
+
+@foreach(var renderFragment in _components)
+{
+    <div @key=renderFragment>
+        @renderFragment
+    </div>
+}
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+
+@code {
+    private List<RenderFragment> _components = new();
+
+    private async Task OnBlockGenerated(ToolBlockInstance instance)
+    {
+        _components.Add(instance.View);
+        StateHasChanged();
+
+        Console.WriteLine(instance.Instance.Data);
+
+        await instance.WaitUntilReady();
+
+        Console.WriteLine(instance.Instance.Data);
+
+        StateHasChanged();
+    }
+}

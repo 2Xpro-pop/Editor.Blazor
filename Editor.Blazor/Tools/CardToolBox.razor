@@ -1,13 +1,11 @@
-﻿@inherits ToolBoxBase<Card>
+﻿@using Microsoft.Extensions.Logging;
+
+@inherits ToolBoxBase<Card, object>
 
 <div class="rz-ripple">
-    <RadzenButton Click=@Click Variant="Variant.Text" Icon="view_agenda" />
+    <RadzenButton Click=@Generate Variant="Variant.Text" Icon="view_agenda" />
 </div>
 
 
 @code {
-    public override Card GenerateComponent()
-    {
-        return new Card();
-    }
 }

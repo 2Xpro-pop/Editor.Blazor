@@ -10,7 +10,7 @@ namespace Editor.Blazor.Tools;
 
 /// <summary>
 /// Don't implement this interface yourself, it's need for internal functionality.
-/// Instead implementing this interface, implement <see cref="IToolBlock{T}"/>
+/// Instead implementing this interface, implement <see cref="ToolBlockBase{T}"/>
 /// </summary>
 public interface IToolBlock : IComponent
 {
@@ -18,8 +18,6 @@ public interface IToolBlock : IComponent
     {
         get; set;
     }
-
     
-
     ValueTask SaveAsync();
 }

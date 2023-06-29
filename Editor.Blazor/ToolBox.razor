@@ -1,3 +1,4 @@
+@implements IDisposable
 
 <RadzenCard Style="min-width:300px; max-width:650px; width: 100%">
     @if(ToolBoxes != null)
@@ -7,24 +8,33 @@
 </RadzenCard>
 
 @code{
-    [Parameter]
-    public IEnumerable<IToolBox>? ToolBoxes { get; set; }
+    private List<IDisposable> _disposables = new();
 
     [Parameter]
-    public EventCallback<IToolBlock> ComponentGenerated { get; set; }
+    public IEnumerable<ToolDescriptor>? ToolBoxes { get; set; }
+
+    [Parameter]
+    public EventCallback<ToolBlockInstance> BlockGenerated { get; set; }
 
     private RenderFragment RenderToolBoxes() => builder =>
     {
         foreach(var toolBox in ToolBoxes!)
         {
-            var fragmentField = EditorBlazorHelper.GetPrivateField(toolBox.GetType(), "_renderFragment");
-
-            var value = (RenderFragment)fragmentField!.GetValue(toolBox)!;
-            toolBox.Click = EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+            builder.OpenComponent(0, toolBox.ToolType);
+            builder.AddComponentReferenceCapture(1, r =>
             {
-                ComponentGenerated?.InvokeAsync(toolBox.GenerateComponent());
+                var toolBoxComponent = (IToolBox)r;
+
+                var disposable = toolBoxComponent.BlockGenerated.Subscribe(fragment =>
+                {
+                    BlockGenerated.InvokeAsync(fragment);
+                });
+
+                _disposables.Add(disposable);
             });
-            builder.AddContent(0, value);
+            builder.CloseComponent();
         }
     };
+
+    public void Dispose() => _disposables.ForEach(d => d.Dispose());
 }

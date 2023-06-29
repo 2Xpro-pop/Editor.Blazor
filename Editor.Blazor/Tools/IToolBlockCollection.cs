@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Editor.Blazor.Tools.Generic;
 
 namespace Editor.Blazor.Tools;
-public interface IToolBlockCollection: IReadOnlyList<IToolBox>
+public interface IToolBlockCollection: ICollection<ToolDescriptor>
 {
-    void AddTool<T, U>(string name) where U : IToolBlock where T : IToolBox<U>;
-    void AddTool<T, U>(T instance, string name) where U : IToolBlock where T : IToolBox<U>;
 }

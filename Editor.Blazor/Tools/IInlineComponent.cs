@@ -10,7 +10,7 @@ namespace Editor.Blazor.Tools;
 
 /// <summary>
 /// Don't implement this interface yourself, it's need for internal functionality.
-/// Instead implementing this interface, implement <see cref="IInlineComponent{T}"/>
+/// Instead implementing this interface, implement <see cref="InlineComponentBase{T}"/>
 /// </summary>
 public interface IInlineComponent : IComponent
 {

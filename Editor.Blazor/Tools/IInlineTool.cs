@@ -12,9 +12,9 @@ namespace Editor.Blazor.Tools;
 /// <summary>
 /// If you are using a custom Blazor component, 
 /// it is not necessary to implement this interface. 
-/// However, if you are using simple tags (e.g., 'b', 'i', 'a'), 
+/// However, if you are using simple tags (e.g., 'b', 'i'), 
 /// you can go ahead and implement this interface. 
-/// For other cases, it is recommended to implement <see cref="IInlineTool{T}"/> instead.
+/// For other cases, it is recommended to implement <see cref="InlineToolBase{T}"/> instead.
 /// </summary>
 public interface IInlineTool: IComponent
 {

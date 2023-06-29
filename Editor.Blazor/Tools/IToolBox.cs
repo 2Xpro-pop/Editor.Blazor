@@ -11,13 +11,17 @@ namespace Editor.Blazor.Tools;
 
 /// <summary>
 /// Don't implement this interface yourself, it's need for internal functionality.
-/// Instead implementing this interface, implement <see cref="IToolBox{T}"/>
+/// Instead implementing this interface, implement <see cref="ToolBoxBase{T}"/>
 /// </summary>
 public interface IToolBox : IComponent
 {
-    public EventCallback<MouseEventArgs> Click
+    /// <summary>
+    /// Each time you generate a new block, raise an event indicating that it has been generated. 
+    /// Generate the block in accordance with the UX (button click, opening a modal window, 
+    /// configuring a component, and then generating it if necessary), rather than randomly.
+    /// </summary>
+    public IObservable<ToolBlockInstance> BlockGenerated
     {
-        get; set;
+        get;
     }
-    IToolBlock GenerateComponent();
 }

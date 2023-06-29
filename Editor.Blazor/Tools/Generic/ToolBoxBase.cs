@@ -1,21 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reactive.Subjects;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace Editor.Blazor.Tools.Generic;
-public abstract class ToolBoxBase<T> : ComponentBase, IToolBox<T> where T : IToolBlock
+public abstract class ToolBoxBase<T, U> : ComponentBase, IToolBox where T : IToolBlock<U>
 {
-    [Parameter]
-    public EventCallback<MouseEventArgs> Click
+    public IObservable<ToolBlockInstance> BlockGenerated => _blockGenerated;
+
+    protected readonly Subject<ToolBlockInstance> _blockGenerated = new();
+
+    protected void Generate(U? data = default)
     {
-        get;
-        set;
+        var holder = new ToolBlockHolder();
+        _blockGenerated.OnNext(new()
+        {
+            Instance = holder,
+            View = builder =>
+        {
+            builder.OpenComponent<T>(0);
+            builder.AddAttribute(1, "Data", data);
+            builder.AddComponentReferenceCapture(2, instance => holder.ToolBlock = (IToolBlock)instance);
+            builder.CloseComponent();
+        }
+        });
     }
 
-    public abstract T GenerateComponent();
-    IToolBlock IToolBox.GenerateComponent() => GenerateComponent();
 }
